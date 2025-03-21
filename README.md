@@ -13,8 +13,20 @@ To use the web framework implement request handlers
 ```
 import stallholder.RequestHandler;
 
-public class TokenHandler extends MyHttpResponse {
+public class TokenHandler extends RequestHandler {
+    private static TokenHandler instance;
     
+    @Override
+    public MyHttpResponse HandleRequest(MyHttpRequest request) {
+        ...
+    }
+
+    public static KenHandler getInstance() {
+        if(instance == null) {
+            instance = new KenHandler();
+        }
+        return instance;
+    }
 }
 
 ```
@@ -34,4 +46,19 @@ router.AddRoute(new MyHttpRequest(HttpVerb.POST, "/token"), TokenHandler.getInst
 
 Finally Define the HTTPServer and launch it
 ```
+import stallholder.ServerConfig;
+import stallholder.HTTPServer;
+
+...
+ServerConfig sc = new ServerConfig(portNumber, numThreads);
+...
+HTTPServer server = new HTTPServer(sc, router);
+while(true)
+{
+    try {
+        server.handleRequests();
+    } catch(IOException e) {
+        e.printStackTrace();
+    }
+}
 ```
