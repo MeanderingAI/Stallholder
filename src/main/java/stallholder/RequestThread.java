@@ -76,8 +76,7 @@ public class RequestThread extends Thread {
                 if(line == null) {
                     break;
                 }
-                line = line.trim();
-                if(line == "") {
+                if(line.isEmpty()) {
                     break;
                 }
                 request.insertHeader(line);

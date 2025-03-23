@@ -16,7 +16,7 @@ public class MyHttpHeaders extends HashMap<String, String> {
      * @throws IllegalArgumentException
      */
     public void insertHeader(String line) throws ParseException, IllegalArgumentException
-    {
+    {   
         int first_section_idx = line.indexOf(':');
         if(first_section_idx == -1) {
             throw new InsertHeaderException(new Exception("No colon found"), line);
