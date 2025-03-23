@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HTTPServer extends ServerSocket {
@@ -19,6 +20,7 @@ public class HTTPServer extends ServerSocket {
         this.threads = new LinkedList<RequestThread>();
         this.router = router;
     }
+
 
     public void handleRequest() throws IOException {
         Socket socket = this.accept();

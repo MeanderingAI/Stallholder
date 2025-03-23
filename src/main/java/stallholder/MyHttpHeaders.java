@@ -3,6 +3,8 @@ package stallholder;
 import java.text.ParseException;
 import java.util.HashMap;
 
+import stallholder.exceptions.InsertHeaderException;
+
 /**
  * Holds http headers
  */
@@ -15,14 +17,16 @@ public class MyHttpHeaders extends HashMap<String, String> {
      */
     public void insertHeader(String line) throws ParseException, IllegalArgumentException
     {
-        String[] tokens = line.split(":");
-        if(tokens.length <= 1) {
-            throw new ParseException(line, 0);
+        int first_section_idx = line.indexOf(':');
+        if(first_section_idx == -1) {
+            throw new InsertHeaderException(new Exception("No colon found"), line);
         }
-        if(this.containsKey(tokens[0])) {
+        String first_section = line.substring(0, first_section_idx);
+        if(this.containsKey(first_section)) {
             throw new IllegalArgumentException("Already have that header, something went wrong.");
         }
-        this.put(tokens[0], tokens[1]);
+        String second_section = line.substring(first_section_idx + 1);
+        this.put(first_section, second_section);
     }
 
     /**

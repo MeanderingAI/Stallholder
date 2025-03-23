@@ -59,13 +59,20 @@ public class MyHttpRequest {
      * @throws ParseException if line is not formatted correctly
      */
     public void parseFirstLine(String line) throws ParseException {
-        String[] tokens = line.split(" ");
-        if(tokens.length != 3) {
-            throw new ParseException(line, 0);
+        int first_space = line.indexOf(' ');
+        int second_space = line.indexOf(' ', first_space + 1);
+        
+        String third_section = line.substring(second_space + 1);
+        if(third_section.contains(" ")) {
+            throw new ParseException(line, second_space);
         }
-        this.verb =  HttpVerb.getVerb(tokens[0].trim());
-        this.requestURI = tokens[1].trim();
-        this.httpVersion = HttpVersion.getVersion(tokens[2].trim());
+        
+        String first_section = line.substring(0, first_space);
+        String second_section = line.substring(first_space + 1, second_space);
+        this.verb =  HttpVerb.getVerb(first_section);
+
+        this.requestURI = second_section;
+        this.httpVersion = HttpVersion.getVersion(third_section);
     }
 
     /**
