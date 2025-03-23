@@ -37,6 +37,7 @@ Then create a router and add the routes
 import stallholder.URINotFound;
 import stallholder.Router;
 import stallholder.MyHttpRequest;
+import stallholder.HttpVerb;
 
 ...
 
