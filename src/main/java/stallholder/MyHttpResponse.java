@@ -56,7 +56,7 @@ public class MyHttpResponse {
     }
 
     public void SetContent(byte[] byte_content) {
-        this.byte_content = byte_content;
+        System.arraycopy(byte_content, 0, this.byte_content, 0, byte_content.length);
         this.string_content = false;
     }
 
