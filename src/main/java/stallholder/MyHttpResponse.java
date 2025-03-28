@@ -1,6 +1,7 @@
 package stallholder;
 
 import java.text.ParseException;
+import java.util.Arrays;
 
 /**
  * Represents an HTTP response.
@@ -56,7 +57,7 @@ public class MyHttpResponse {
     }
 
     public void SetContent(byte[] byte_content) {
-        System.arraycopy(byte_content, 0, this.byte_content, 0, byte_content.length);
+        this.byte_content = Arrays.copyOf(byte_content, byte_content.length);
         this.string_content = false;
     }
 
@@ -77,7 +78,11 @@ public class MyHttpResponse {
         if(ct != null) {
             sb.append("Content-Type: " + ct + "\r\n");
         }
-        sb.append("Content-length: " + content.length() + "\r\n");
+        if(this.string_content) {
+            sb.append("Content-length: " + content.length() + "\r\n");
+        } else {
+            sb.append("Content-length: " + byte_content.length + "\r\n");
+        }
         sb.append("Connection: close\r\n");
         if(headers != null) {
             sb.append(headers.toString());
