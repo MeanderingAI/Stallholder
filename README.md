@@ -14,18 +14,9 @@ To use the web framework implement request handlers
 import stallholder.RequestHandler;
 
 public class TokenHandler extends RequestHandler {
-    private static TokenHandler instance;
-    
     @Override
     public MyHttpResponse HandleRequest(MyHttpRequest request) {
         ...
-    }
-
-    public static KenHandler getInstance() {
-        if(instance == null) {
-            instance = new KenHandler();
-        }
-        return instance;
     }
 }
 
@@ -42,9 +33,9 @@ import stallholder.HttpVerb;
 ...
 
 Router router = new Router(new URINotFound());
-
-router.AddRoute(new MyHttpRequest(HttpVerb.OPTIONS, "/token"), TokenHandler.getInstance());
-router.AddRoute(new MyHttpRequest(HttpVerb.POST, "/token"), TokenHandler.getInstance());
+TokenHandler tokenHandler = new TokenHandler();
+router.AddRoute(new MyHttpRequest(HttpVerb.OPTIONS, "/token"), tokenHandler);
+router.AddRoute(new MyHttpRequest(HttpVerb.POST, "/token"), tokenHandler);
 
 ```
 
