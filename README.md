@@ -12,6 +12,8 @@ mvn clean install
 To use the web framework implement request handlers
 ```
 import stallholder.RequestHandler;
+import stallholder.MyHttpResponse;
+import stallholder.MyHttpRequest
 
 public class TokenHandler extends RequestHandler {
     @Override
@@ -27,7 +29,6 @@ Then create a router and add the routes
 ```
 import stallholder.URINotFound;
 import stallholder.Router;
-import stallholder.MyHttpRequest;
 import stallholder.HttpVerb;
 
 ...
