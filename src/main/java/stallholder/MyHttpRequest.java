@@ -19,7 +19,11 @@ public class MyHttpRequest {
      * Default constructor
      */
     public MyHttpRequest() {
-        headers = new MyHttpHeaders();
+        this.headers = new MyHttpHeaders();
+        this.verb = HttpVerb.ERROR;
+        this.requestURI = "<unset>";
+        this.body = "";
+        this.httpVersion = HttpVersion.HTTP1;
     }
 
     /**
@@ -31,6 +35,8 @@ public class MyHttpRequest {
     public MyHttpRequest(HttpVerb verb, String requestURI) {
         this.verb = verb;
         this.requestURI = requestURI;
+        this.body = "";
+        this.httpVersion = HttpVersion.HTTP1;
     }
     
     /**

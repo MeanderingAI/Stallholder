@@ -35,6 +35,10 @@ public class Router {
     }
 
     public void AddRoute(MyHttpRequest filter, RequestHandler handler) {
+        if(filter.getVerb() == null ||
+            filter.getVerb() == HttpVerb.ERROR) {
+            throw new IllegalArgumentException("Filter must have a valid HTTP verb");
+        }
         requestList.add(new RouterPair(filter, handler));
     }
 
