@@ -61,6 +61,24 @@ public class MyHttpResponse {
         this.string_content = false;
     }
 
+    public void setCORS(String allowed_origin) throws ParseException {
+
+        if(allowed_origin != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Access-Control-Allow-Origin: ");
+            sb.append(allowed_origin);
+            this.addToHeaders(sb.toString());
+        } else {
+            throw new ParseException("CORS origin is null", 0);
+        }
+        this.addToHeaders("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+        this.addToHeaders("Access-Control-Allow-Headers: Content-Type");
+        this.addToHeaders("Access-Control-Max-Age: 86400");
+        this.addToHeaders("Vary: Accept-Encoding, Origin");
+        this.addToHeaders("Keep-Alive: timeout=2, max=100");
+        this.addToHeaders("Connection: Keep-Alive");
+    }
+
     /*
     example "Allow: OPTIONS, GET, HEAD, POST"
      */
