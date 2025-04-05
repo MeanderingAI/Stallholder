@@ -44,7 +44,6 @@ public class FolderHandler extends RequestHandler {
             } else {
                 response.SetCode(StatusCodes.OK);
                 response.SetContent(Files.readAllBytes(Paths.get(full_path)));
-                ;
                 response.SetContentType(ContentType.fromFileName(file_name));
             }
             
