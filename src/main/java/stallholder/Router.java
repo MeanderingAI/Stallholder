@@ -34,6 +34,11 @@ public class Router {
         not_found_handler = default404;
     }
 
+    public void AddRoute(HttpVerb verb, String path, RequestHandler handler) {
+        MyHttpRequest filter = new MyHttpRequest(verb, path);
+        this.AddRoute(filter, handler);
+    }
+
     public void AddRoute(MyHttpRequest filter, RequestHandler handler) {
         if(filter.getVerb() == null ||
             filter.getVerb() == HttpVerb.ERROR) {
