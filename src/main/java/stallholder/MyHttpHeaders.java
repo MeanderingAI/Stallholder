@@ -26,7 +26,11 @@ public class MyHttpHeaders extends HashMap<String, String> {
             throw new IllegalArgumentException("Already have that header, something went wrong.");
         }
         String second_section = line.substring(first_section_idx + 1);
-        this.put(first_section, second_section);
+        this.put(first_section.toLowerCase(), second_section);
+    }
+
+    public String getHeader(String header) {
+        return this.get(header.toLowerCase());
     }
 
     /**

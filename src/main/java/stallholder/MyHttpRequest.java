@@ -58,6 +58,10 @@ public class MyHttpRequest {
         }
     }
 
+    public String RemoteAddress() {
+        return this.headers.getHeader("x-forwarded-for");
+    }
+
     /**
      * Used when parsing request into object
      * 

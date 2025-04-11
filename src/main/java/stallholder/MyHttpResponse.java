@@ -17,23 +17,30 @@ public class MyHttpResponse {
     public boolean string_content;
 
     public MyHttpResponse() {
-        content = "";
-        ct = ContentType.HTML;
-        statusCodes = StatusCodes.OK;
-        string_content = true;
+        this.content = "";
+        this.ct = ContentType.HTML;
+        this.statusCodes = StatusCodes.OK;
+        this.string_content = true;
+    }
+
+    public MyHttpResponse(StatusCodes sc, ContentType myContentType, String content) {
+        this.content = content;
+        this.statusCodes = sc;
+        this.ct = myContentType;
+        this.string_content = true;
     }
 
     public MyHttpResponse(StatusCodes sc) {
-        content = "";
-        statusCodes = sc;
-        string_content = true;
+        this.content = "";
+        this.statusCodes = sc;
+        this.string_content = true;
     }
 
     public MyHttpResponse(String myContent) {
-        content = myContent;
-        statusCodes = StatusCodes.OK;
-        ct = ContentType.HTML;
-        string_content = true;
+        this.content = myContent;
+        this.statusCodes = StatusCodes.OK;
+        this.ct = ContentType.HTML;
+        this.string_content = true;
     }
 
     public MyHttpResponse(String myContent, ContentType myContentType) {
