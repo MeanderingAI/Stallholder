@@ -9,7 +9,7 @@ import stallholder.exceptions.InsertHeaderException;
  * Holds http headers
  */
 public class MyHttpHeaders extends HashMap<String, String> {
-    
+    private MyHttpCookie cookies = null;
     /**
      * @param line line to parse into the header object
      * @throws ParseException
@@ -26,7 +26,17 @@ public class MyHttpHeaders extends HashMap<String, String> {
             throw new IllegalArgumentException("Already have that header, something went wrong.");
         }
         String second_section = line.substring(first_section_idx + 1);
-        this.put(first_section.toLowerCase(), second_section);
+        String key = first_section.toLowerCase();
+        if(key.equals("cookie")) {
+            cookies = new MyHttpCookie();
+            cookies.setCookie(second_section);
+        } else {
+            this.put(key, second_section);
+        }
+    }
+
+    public MyHttpCookie getCookies() {
+        return cookies;
     }
 
     public String getHeader(String header) {

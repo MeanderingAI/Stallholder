@@ -3,6 +3,7 @@ package stallholder;
 
 
 import java.text.ParseException;
+import java.util.UUID;
 import java.util.Map.Entry;
 
 /**
@@ -60,6 +61,14 @@ public class MyHttpRequest {
 
     public String RemoteAddress() {
         return this.headers.getHeader("x-forwarded-for");
+    }
+
+    public UUID getSessionUUID() {
+        String sessionID = this.headers.getCookies().get("session");
+        if(sessionID == null) {
+            return null;
+        }
+        return UUID.fromString(sessionID);
     }
 
     /**

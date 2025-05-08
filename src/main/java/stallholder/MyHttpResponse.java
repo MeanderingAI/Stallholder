@@ -68,6 +68,12 @@ public class MyHttpResponse {
         this.string_content = false;
     }
 
+    public void SetCookie(String cookie) throws ParseException {
+        this.addToHeaders("Set-Cookie: " + cookie );
+    }
+
+    
+
     public void setCORS(String allowed_origin) throws ParseException {
 
         if(allowed_origin != null) {

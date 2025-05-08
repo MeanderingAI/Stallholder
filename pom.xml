@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>ai.meandering</groupId>
    <artifactId>stall-holder</artifactId>
-   <version>0.1.8-SNAPSHOT</version>
+   <version>0.1.9-SNAPSHOT</version>
 
    <name>${project.groupId}:${project.artifactId}</name>
    <description>Stallholder: A web-server for Java</description>
