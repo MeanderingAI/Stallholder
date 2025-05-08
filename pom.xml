@@ -9,10 +9,6 @@
    <description>Stallholder: A web-server for Java</description>
    <packaging>jar</packaging>
 
-   <dependencies>
-      <!-- Your required dependencies here! -->
-   </dependencies>
-
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <maven.compiler.source>1.8</maven.compiler.source>
