@@ -21,7 +21,7 @@ public class Session_Set {
         response.SetCookie(sb.toString());
     }
 
-    public Session_Entry add(MyHttpResponse response) throws ParseException {
+    public Session_Entry new_entry(MyHttpResponse response) throws ParseException {
         Session_Entry entry = new Session_Entry();
         this.SetSessionIDCookie(response, entry.getSessionID());
         this.sessions.put(entry.getSessionID(), entry);

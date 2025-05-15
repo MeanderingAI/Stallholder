@@ -21,7 +21,11 @@ public class FileHandler extends RequestHandler{
         this.file = new File(this.file_path);
         
         if(!this.file.exists()) {
-            throw new RuntimeException("File does not exist");
+            StringBuilder sb = new StringBuilder();
+            sb.append("File; ");
+            sb.append(this.file_path);
+            sb.append(" does not exist");
+            throw new FileNotFoundException(sb.toString());
         }
         if(this.file.isDirectory()) {
             throw new RuntimeException("FileHandler cannot handle directories");

@@ -5,7 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HTTPServer extends ServerSocket {
@@ -41,6 +40,51 @@ public class HTTPServer extends ServerSocket {
         }
         if(!foundSpot) {
             threads.add(rt);
+        }
+    }
+
+    public void handleRequest(boolean debug) throws IOException {
+        Socket socket = this.accept();
+        if(threads.size() >= config.GetNumberOfThreads()) {
+            logger.warning("Over the allowed number of threads");
+        }
+
+        RequestThread rt = new  RequestThread(socket, router);
+        rt.start();
+
+        boolean foundSpot = false;
+        for(int i = 0; i < threads.size(); ++i) {
+            if(threads.get(i).done()) {
+                threads.set(i, rt);
+                foundSpot = true;
+                break;
+            }
+        }
+        if(!foundSpot) {
+            threads.add(rt);
+        }
+    }
+
+    public void handleRequests() {
+        while(true) {
+            try {
+                this.handleRequest();
+            } catch (IOException e) {
+                logger.warning("Error accepting connection: " + e.getMessage());
+            }
+        }
+    }
+
+    public void handleRequests(boolean debug) {
+        System.out.println("Starting server on port " + config.GetPortNumber());
+        System.out.println("Number of threads: " + config.GetNumberOfThreads());
+
+        while(true) {
+            try {
+                this.handleRequest();
+            } catch (IOException e) {
+                logger.warning("Error accepting connection: " + e.getMessage());
+            }
         }
     }
 
