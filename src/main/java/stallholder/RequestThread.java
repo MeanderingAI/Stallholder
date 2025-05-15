@@ -17,10 +17,20 @@ public class RequestThread extends Thread {
     private Exception e = null;
     private Router router = null;
     private boolean done = false;
+    private boolean debug = false;
 
     public RequestThread(Socket socket, Router router) throws IOException {
         this.socket = socket;
         this.router = router;
+    }
+
+    public RequestThread(Socket socket, Router router, boolean debug) throws IOException {
+        this.socket = socket;
+        this.router = router;
+        this.debug = debug;
+        if(this.debug) {
+            logger.info("Debug mode enabled");
+        }
     }
 
     public Exception getException() {
@@ -86,6 +96,15 @@ public class RequestThread extends Thread {
             this.e = e;
             this.done = true;
             return;
+        }
+
+        if(this.debug) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Recieved a ");
+            sb.append(request.getVerb());
+            sb.append(" request for ");
+            sb.append(request.getRequestURL());
+            logger.info(sb.toString());
         }
 
         if(request.getVerb() == HttpVerb.POST) {
