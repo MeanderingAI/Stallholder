@@ -49,9 +49,6 @@ public class RequestThread extends Thread {
         this.socket = socket;
         this.router = router;
         this.debug = debug;
-        if(this.debug) {
-            logger.info("Debug mode enabled");
-        }
     }
 
     /**

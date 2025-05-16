@@ -41,7 +41,7 @@ public class HTTPServer extends ServerSocket {
             logger.warning("Over the allowed number of threads");
         }
 
-        RequestThread rt = new  RequestThread(socket, router);
+        RequestThread rt = new  RequestThread(socket, router, false);
         rt.start();
 
         boolean foundSpot = false;
@@ -105,12 +105,14 @@ public class HTTPServer extends ServerSocket {
      * @param debug true to enable debug mode
      */
     public void handleRequests(boolean debug) {
-        logger.info("Starting server on port " + config.GetPortNumber());
-        logger.info("Number of threads: " + config.GetNumberOfThreads());
+        if(debug) {
+            logger.info("Starting server on port " + config.GetPortNumber());
+            logger.info("Number of threads: " + config.GetNumberOfThreads());
+        }
 
         while(true) {
             try {
-                this.handleRequest();
+                this.handleRequest(debug);
             } catch (IOException e) {
                 logger.warning("Error accepting connection: " + e.getMessage());
             }
