@@ -76,8 +76,8 @@ public class HTTPServer extends ServerSocket {
     }
 
     public void handleRequests(boolean debug) {
-        System.out.println("Starting server on port " + config.GetPortNumber());
-        System.out.println("Number of threads: " + config.GetNumberOfThreads());
+        logger.info("Starting server on port " + config.GetPortNumber());
+        logger.info("Number of threads: " + config.GetNumberOfThreads());
 
         while(true) {
             try {
