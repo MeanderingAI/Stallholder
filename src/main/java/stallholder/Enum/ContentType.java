@@ -1,4 +1,4 @@
-package stallholder;
+package stallholder.Enum;
 
 import java.util.Locale;
 

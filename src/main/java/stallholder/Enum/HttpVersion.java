@@ -1,4 +1,4 @@
-package stallholder;
+package stallholder.Enum;
 
 /**
  * Enum representing the HTTP version.
@@ -36,7 +36,7 @@ public enum HttpVersion {
      * @param version string representation of the HTTP version
      * @return enum representation of the HTTP version
      */
-    static HttpVersion getVersion(String version) {
+    public static HttpVersion getVersion(String version) {
         switch (version) {
             case "HTTP/1.1":
                 return HTTP1;

@@ -1,4 +1,4 @@
-package stallholder;
+package stallholder.Enum;
 
 /**
  * Enum representing HTTP status codes.

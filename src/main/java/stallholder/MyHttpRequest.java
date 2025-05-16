@@ -3,6 +3,8 @@ package stallholder;
 import java.text.ParseException;
 import java.util.UUID;
 
+import stallholder.Enum.HttpVerb;
+import stallholder.Enum.HttpVersion;
 import stallholder.exceptions.InsertHeaderException;
 
 import java.util.Map.Entry;

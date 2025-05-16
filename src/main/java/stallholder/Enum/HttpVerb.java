@@ -1,4 +1,4 @@
-package stallholder;
+package stallholder.Enum;
 
 /**
  * Enum representing the HTTP verbs.
@@ -71,7 +71,7 @@ public enum HttpVerb {
      * @param verb the string representation of the HTTP verb
      * @return enum representation of the verb
      */
-    static HttpVerb getVerb(String verb) {
+    public static HttpVerb getVerb(String verb) {
         switch (verb) {
             case "GET":
                 return GET;
