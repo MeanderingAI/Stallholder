@@ -1,24 +1,23 @@
 package stallholder.exceptions;
 
 /**
- * Exception thrown when there is an error inserting a header.
- * This exception extends RuntimeException and provides additional details about the error.
+ * Exception thrown when there is an error handling a request.
  */
-public class InsertHeaderException extends RuntimeException{
+public class HandleRequestException extends RuntimeException {
     /**
      * Exception that caused this exception.
      */
-    Exception causedBy;
+    Exception causedBy = null;
     /**
      * Details about the exception.
      */
-    String Details;
+    String Details = null;
 
-    /**
+/**
      * Constructor for the InsertHeaderException.
      * @param causedBy the exception that caused this exception
      */
-    public InsertHeaderException(Exception causedBy) {
+    public HandleRequestException(Exception causedBy) {
         super(causedBy);
         this.causedBy = causedBy;
     }
@@ -28,7 +27,7 @@ public class InsertHeaderException extends RuntimeException{
      * @param causedBy the exception that caused this exception
      * @param details additional details about the exception
      */
-    public InsertHeaderException(Exception causedBy, String details) {
+    public HandleRequestException(Exception causedBy, String details) {
         super(details);
         this.causedBy = causedBy;
         this.Details = details;
@@ -50,4 +49,3 @@ public class InsertHeaderException extends RuntimeException{
         return Details;
     }
 }
-

@@ -5,21 +5,72 @@ package stallholder;
  * https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods
  */
 public enum HttpVerb {
-    GET("GET"), HEAD("HEAD"), POST("POST"), 
-    PUT("PUT"), DELETE("DELETE"), CONNECT("CONNECT"), 
-    OPTIONS("OPTIONS"), TRACE("TRACE"), PATCH("PATCH"),
+    /**
+     * GET enum value
+     */
+    GET("GET"), 
+    /**
+     * HEAD enum value
+     */
+    HEAD("HEAD"), 
+    /**
+     * POST enum value
+     */
+    POST("POST"), 
+    /**
+     * PUT enum value
+     */
+    PUT("PUT"), 
+    /**
+     * DELETE enum value
+     */
+    DELETE("DELETE"), 
+    /**
+     * CONNECT enum value
+     */
+    CONNECT("CONNECT"), 
+    /**
+     * OPTIONS enum value
+     */
+    OPTIONS("OPTIONS"), 
+    /**
+     * TRACE enum value
+     */
+    TRACE("TRACE"), 
+    /**
+     * PATCH enum value
+     */
+    PATCH("PATCH"),
+    /**
+     * ERROR enum value
+     */
     ERROR("ERROR");
 
+    /**
+     * String representation of the HTTP verb.
+     */
     private final String message;
 
+    /**
+     * Constructor for the HttpVerb enum.
+     * @param message string message
+     */
     HttpVerb(String message) {
         this.message = message;
     }
 
+    /**
+     * @return the string representation of the HTTP verb.
+     */
     public String toString() {
         return message;
     }
 
+    /**
+     * Returns the HttpVerb enum corresponding to the given string.
+     * @param verb the string representation of the HTTP verb
+     * @return enum representation of the verb
+     */
     static HttpVerb getVerb(String verb) {
         switch (verb) {
             case "GET":

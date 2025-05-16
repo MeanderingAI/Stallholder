@@ -7,12 +7,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * Represents an HTTP server.
+ */
 public class HTTPServer extends ServerSocket {
     private Logger logger = Logger.getLogger(HTTPServer.class.getName());
     private List<RequestThread> threads = null;
     private final ServerConfig config;
     private final Router router;
 
+    /**
+     * Constructor for the HTTP server
+     * @param serverConfig Configuration for the server
+     * @param router stallholder.Router object
+     * @throws IOException if there is an error while processing the request
+     */
     public HTTPServer(ServerConfig serverConfig, Router router) throws IOException {
         super(serverConfig.GetPortNumber());
         this.config = serverConfig;
@@ -20,7 +29,12 @@ public class HTTPServer extends ServerSocket {
         this.router = router;
     }
 
-
+    /**
+     * Accepts a connection from a client
+     * Handles a single request 
+     * 
+     * @throws IOException from the socket
+     */
     public void handleRequest() throws IOException {
         Socket socket = this.accept();
         if(threads.size() >= config.GetNumberOfThreads()) {
@@ -43,13 +57,20 @@ public class HTTPServer extends ServerSocket {
         }
     }
 
+    /**
+     * Accepts a connection from a client
+     * Handles a single request 
+     * 
+     * @param debug true to enable debug mode
+     * @throws IOException from the socket
+     */
     public void handleRequest(boolean debug) throws IOException {
         Socket socket = this.accept();
         if(threads.size() >= config.GetNumberOfThreads()) {
             logger.warning("Over the allowed number of threads");
         }
 
-        RequestThread rt = new  RequestThread(socket, router);
+        RequestThread rt = new RequestThread(socket, router, debug);
         rt.start();
 
         boolean foundSpot = false;
@@ -65,7 +86,11 @@ public class HTTPServer extends ServerSocket {
         }
     }
 
-    public void handleRequests() {
+    /**
+     * Handles requests in a loop
+     * @throws IOException from the socket
+     */
+    public void handleRequests() throws IOException{
         while(true) {
             try {
                 this.handleRequest();
@@ -75,6 +100,10 @@ public class HTTPServer extends ServerSocket {
         }
     }
 
+    /**
+     * Handles requests in a loop
+     * @param debug true to enable debug mode
+     */
     public void handleRequests(boolean debug) {
         logger.info("Starting server on port " + config.GetPortNumber());
         logger.info("Number of threads: " + config.GetNumberOfThreads());
@@ -88,6 +117,10 @@ public class HTTPServer extends ServerSocket {
         }
     }
 
+    /**
+     * Check if all threads are done
+     * @return true if all threads are done otherwise return true
+     */
     public boolean threadsDone() {
         for(RequestThread rt : threads) {
             if(!rt.done()) {

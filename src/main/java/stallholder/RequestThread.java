@@ -2,10 +2,15 @@ package stallholder;
 
 import java.io.*;
 import java.net.Socket;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Logger;
 
+import stallholder.exceptions.HandleRequestException;
+import stallholder.exceptions.InsertHeaderException;
+
+/**
+ * Represents a request thread.
+ */
 public class RequestThread extends Thread {
     private Logger logger = Logger.getLogger(RequestThread.class.getName());
     private Socket socket = null;
@@ -19,12 +24,27 @@ public class RequestThread extends Thread {
     private boolean done = false;
     private boolean debug = false;
 
+    /**
+     * Constructor for the request thread
+     * @param socket berkley socket we are using the thread manager should provide this
+     * @param router stallholder router object
+     * @throws IOException socket may throw an exception or during processing of request
+     */
     public RequestThread(Socket socket, Router router) throws IOException {
+        super();
         this.socket = socket;
         this.router = router;
     }
 
+    /**
+     * Constructor for the request thread
+     * @param socket berkley socket we are using the thread manager should provide this
+     * @param router stallholder router object
+     * @param debug true to enable debug mode
+     * @throws IOException socket may throw an exception or during processing of request
+     */
     public RequestThread(Socket socket, Router router, boolean debug) throws IOException {
+        super();
         this.socket = socket;
         this.router = router;
         this.debug = debug;
@@ -33,18 +53,34 @@ public class RequestThread extends Thread {
         }
     }
 
+    /**
+     * Returns an exception if one was thrown
+     * @return returns exception if one was thrown or null
+     */
     public Exception getException() {
         return e;
     }
 
+    /**
+     * Returns true if the thread is done
+     * @return true if the thread is done
+     */
     public boolean done() {
         return done;
     }
 
+    /**
+     * Returns the request object
+     * @return the request object
+     */
     public MyHttpRequest getRequest() {
         return request;
     }
 
+    /**
+     * Returns the response object
+     * @return response object
+     */
     public MyHttpResponse getResponse() {
         return response;
     }
@@ -81,17 +117,21 @@ public class RequestThread extends Thread {
 
         // Read headers
         try {
-            while (bufferedReader.ready()) {
-                line = bufferedReader.readLine();
-                if(line == null) {
-                    break;
+            try {
+                while (bufferedReader.ready()) {
+                    line = bufferedReader.readLine();
+                    if(line == null) {
+                        break;
+                    }
+                    if(line.isEmpty()) {
+                        break;
+                    }
+                    request.insertHeader(line);
                 }
-                if(line.isEmpty()) {
-                    break;
-                }
-                request.insertHeader(line);
+            } catch (InsertHeaderException | IOException e) {
+                throw new HandleRequestException(e, "Error processing buffer; last processed line;\n" + line);
             }
-        } catch(IOException | ParseException | IllegalArgumentException e) {
+        } catch(HandleRequestException e) {
             e.printStackTrace();
             this.e = e;
             this.done = true;
@@ -158,15 +198,7 @@ public class RequestThread extends Thread {
             e.printStackTrace();
             this.e = e;
             this.done = true;
-        } catch (ParseException parseException) {
-            parseException.printStackTrace();
-            this.e = parseException;
-            this.done = true;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            this.e = throwables;
-            this.done = true;
-        }
+        } 
     }
 
     @Override

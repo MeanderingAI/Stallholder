@@ -10,17 +10,32 @@ import stallholder.ContentType;
 import stallholder.MyHttpRequest;
 import stallholder.MyHttpResponse;
 import stallholder.RequestHandler;
-import stallholder.StatusCodes;
+import stallholder.StatusCode;
 import stallholder.Utils;
+import stallholder.exceptions.HandleRequestException;
 
+/**
+ * Handles requests for files in a folder
+ */
 public class FolderHandler extends RequestHandler {
     String folder_path;
+
+    /**
+     * Constructor for the folder handler
+     * @param folder_path the path to the folder
+     */
     public FolderHandler(String folder_path) {
         super();
         this.folder_path = folder_path;
     }
 
 
+    /**
+     * Reads a file into a byte array
+     * @param file the file to read
+     * @return the byte array of the file
+     * @throws IOException if there is an error reading the file
+     */
     public byte[] readFileToByteArray(File file) throws IOException {
         byte[] fileData = new byte[(int) file.length()];
         try(FileInputStream fileInputStream = new FileInputStream(file)) {
@@ -29,8 +44,14 @@ public class FolderHandler extends RequestHandler {
         return fileData;
     }
 
+    /**
+     * Handles a request for a file in the folder
+     * @param request the request to handle
+     * @return the response to the request
+     * @throws HandleRequestException if there is an error reading the file
+     */
     @Override
-    public MyHttpResponse HandleRequest(MyHttpRequest request) throws IOException {
+    public MyHttpResponse HandleRequest(MyHttpRequest request) throws HandleRequestException {
         MyHttpResponse response = new MyHttpResponse();
 
         String file_name = Utils.getLastTokenInPath(request.getRequestURL());
@@ -38,17 +59,21 @@ public class FolderHandler extends RequestHandler {
         File f = new File(full_path);
         if(f.exists()) {
             if(f.isDirectory()) {
-                response.SetCode(StatusCodes.FORBIDDEN);
+                response.SetCode(StatusCode.FORBIDDEN);
                 response.SetContent("Directory access is forbidden", ContentType.PLAIN);
                 return response;
             } else {
-                response.SetCode(StatusCodes.OK);
-                response.SetContent(Files.readAllBytes(Paths.get(full_path)));
+                response.SetCode(StatusCode.OK);
+                try {
+                    response.SetContent(Files.readAllBytes(Paths.get(full_path)));
+                } catch (IOException e) {
+                    throw new HandleRequestException(e, "Error reading file: " + full_path);
+                }
                 response.SetContentType(ContentType.fromFileName(file_name));
             }
             
         } else {
-            response.SetCode(StatusCodes.NOT_FOUND);
+            response.SetCode(StatusCode.NOT_FOUND);
             response.SetContent("File not found", ContentType.PLAIN);
         }
 

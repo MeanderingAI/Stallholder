@@ -1,9 +1,10 @@
 package stallholder;
 
-
-
 import java.text.ParseException;
 import java.util.UUID;
+
+import stallholder.exceptions.InsertHeaderException;
+
 import java.util.Map.Entry;
 
 /**
@@ -30,8 +31,8 @@ public class MyHttpRequest {
     /**
      * Constructor where you can specify the verb and requestURI
      * 
-     * @param verb
-     * @param requestURI
+     * @param verb HTTP verb
+     * @param requestURI request URI
      */
     public MyHttpRequest(HttpVerb verb, String requestURI) {
         this.verb = verb;
@@ -59,10 +60,18 @@ public class MyHttpRequest {
         }
     }
 
+    /**
+     * Returns the remote address of the request
+     * @return remote address of the request
+     */
     public String RemoteAddress() {
         return this.headers.getHeader("x-forwarded-for");
     }
 
+    /**
+     * Returns the session UUID from the request
+     * @return UUID of the session
+     */
     public UUID getSessionUUID() {
         String sessionID = this.headers.getCookies().get("session");
         if(sessionID == null) {
@@ -97,15 +106,15 @@ public class MyHttpRequest {
     /**
      * Inserts a header into the MyHttpHeaders object
      * 
-     * @param line
-     * @throws ParseException
-     * @throws IllegalArgumentException
+     * @param line line to parse into the header object
+     * @throws InsertHeaderException if there is an issue inserting the header
      */
-    public void insertHeader(String line) throws ParseException, IllegalArgumentException {
+    public void insertHeader(String line) throws InsertHeaderException {
         this.headers.insertHeader(line);
     }
 
     /**
+     * Returns the request headers
      * @return requests http verb
      */
     public HttpVerb getVerb() {
@@ -113,11 +122,13 @@ public class MyHttpRequest {
     }
 
     /**
+     * Returns the headers associated with the request
      * @return the headers associated with the request
      */
     public MyHttpHeaders getHeaders() { return headers; }
 
     /**
+     * Sets the request URI
      * @param newRequestURI new request URI
      */
     public void setRequestURL(String newRequestURI) {
@@ -125,7 +136,7 @@ public class MyHttpRequest {
     }
 
     /**
-     * 
+     * Returns the request URI
      * @return request URI
      */
     public String getRequestURL() {
@@ -134,7 +145,7 @@ public class MyHttpRequest {
 
     /**
      * Adds a line to the body of the request
-     * @param line
+     * @param line the line to add
      */
     public void addToBody(String line) {
         if(this.body == null) {
@@ -160,6 +171,7 @@ public class MyHttpRequest {
     }
 
     /**
+     * Returns the http version of the request
      * @return http version of the request
      */
     public HttpVersion getHttpVersion() {
@@ -184,7 +196,7 @@ public class MyHttpRequest {
     /**
      * Compares two requests for equality
      * 
-     * @param toComp
+     * @param toComp the request to compare against
      * @return true if the requests match URL and verb
      */
     public boolean IsEquals(MyHttpRequest toComp) {

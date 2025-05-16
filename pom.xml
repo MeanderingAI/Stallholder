@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>ai.meandering</groupId>
    <artifactId>stall-holder</artifactId>
-   <version>0.1.9-SNAPSHOT</version>
+   <version>0.2.0-Snapshot</version>
 
    <name>${project.groupId}:${project.artifactId}</name>
    <description>Stallholder: A web-server for Java</description>
@@ -20,7 +20,7 @@
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.7</version>
+            <version>3.6.3</version>
             <executions>
                <execution>
                   <id>attach-javadocs</id>

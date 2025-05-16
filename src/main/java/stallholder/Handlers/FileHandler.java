@@ -9,12 +9,23 @@ import stallholder.ContentType;
 import stallholder.MyHttpRequest;
 import stallholder.MyHttpResponse;
 import stallholder.RequestHandler;
-import stallholder.StatusCodes;
+import stallholder.StatusCode;
+import stallholder.exceptions.HandleRequestException;
 
-public class FileHandler extends RequestHandler{
+/**
+ * Handles requests for files
+ */
+public class FileHandler extends RequestHandler {
     File file;
     String file_path;
     byte[] file_data;
+
+    /**
+     * Constructor for the file handler
+     * @param file_path the path to the file
+     * @throws FileNotFoundException if the file does not exist
+     * @throws IOException if there is an error reading the file
+     */
     public FileHandler(String file_path) throws FileNotFoundException, IOException {
         super();
         this.file_path = file_path;
@@ -36,11 +47,22 @@ public class FileHandler extends RequestHandler{
         }
     }
 
+    /**
+     * Handles a request for a file
+     * @param request the request to handle
+     * @return the response to the request
+     * @throws HandleRequestException if the request is invalid
+     */
     @Override
-    public MyHttpResponse HandleRequest(MyHttpRequest request) {
+    public MyHttpResponse HandleRequest(MyHttpRequest request) throws HandleRequestException {
         MyHttpResponse response = new MyHttpResponse();
-        ContentType content_type = ContentType.fromFileName(file.getName());
-        response.SetCode(StatusCodes.OK);
+        ContentType content_type;
+        try {
+            content_type = ContentType.fromFileName(file.getName());
+        } catch(IllegalArgumentException e) {
+            throw new HandleRequestException(e, "Invalid file type: " + file.getName());
+        }
+        response.SetCode(StatusCode.OK);
         response.SetContent(this.file_data);
         response.SetContentType(content_type);
         return response;
