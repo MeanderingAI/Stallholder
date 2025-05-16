@@ -123,7 +123,7 @@ public class MyHttpResponse {
      * Sets the HTTP status code of the response.
      * @param sc StatusCode Enum
      */
-    public void SetCode(StatusCode sc) {
+    public void setCode(StatusCode sc) {
         statusCode = sc;
     }
 
@@ -131,7 +131,7 @@ public class MyHttpResponse {
      * Sets the HTTP status code of the response.
      * @param sc the integer value of the status code we are trying to set
      */
-    public void SetCode(int sc) {
+    public void setCode(int sc) {
         statusCode = StatusCode.fromCode(sc);
     }
 
@@ -139,7 +139,7 @@ public class MyHttpResponse {
      * Sets the content type of the response.
      * @param myContentType the content type in enum format
      */
-    public void SetContentType(ContentType myContentType) {
+    public void setContentType(ContentType myContentType) {
         ct = myContentType;
     }
 
@@ -148,7 +148,7 @@ public class MyHttpResponse {
      * @param myContentType the content type in string format
      * @throws IllegalArgumentException if the content type is not valid
      */
-    public void SetContentType(String myContentType) throws IllegalArgumentException {
+    public void setContentType(String myContentType) throws IllegalArgumentException {
         ct = ContentType.fromFileName(myContentType);
     }
 
@@ -157,7 +157,7 @@ public class MyHttpResponse {
      * @param myContent the content string
      * @param myContentType the content type
      */
-    public void SetContent(String myContent, ContentType myContentType) {
+    public void setContent(String myContent, ContentType myContentType) {
         content = myContent;
         ct = myContentType;
     }
@@ -166,7 +166,7 @@ public class MyHttpResponse {
      * Sets the content of the response.
      * @param byte_content byte contents to be set as the response content
      */
-    public void SetContent(byte[] byte_content) {
+    public void setContent(byte[] byte_content) {
         this.byte_content = Arrays.copyOf(byte_content, byte_content.length);
         this.string_content = false;
     }
@@ -177,7 +177,7 @@ public class MyHttpResponse {
      * @param cookie String to be parsed into a cookie-jar
      * @throws InsertHeaderException if there is an error during the intake 
      */
-    public void SetCookie(String cookie) throws InsertHeaderException {
+    public void setCookie(String cookie) throws InsertHeaderException {
         this.addToHeaders("Set-Cookie: " + cookie );
     }
 

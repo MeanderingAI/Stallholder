@@ -38,10 +38,11 @@ public class Session_Set {
      * @param response the response object to add a session cookie to
      * @throws InsertHeaderException if there is an error setting the header
      */
-    public void newEntry(MyHttpResponse response) throws InsertHeaderException {
+    public Session_Entry newEntry(MyHttpResponse response) throws InsertHeaderException {
         Session_Entry entry = new Session_Entry();
         this.setSessionIDCookie(response, entry.getSessionID());
         this.sessions.put(entry.getSessionID(), entry);
+        return entry;
     }
 
     /**
