@@ -6,12 +6,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import stallholder.ContentType;
 import stallholder.MyHttpRequest;
 import stallholder.MyHttpResponse;
 import stallholder.RequestHandler;
-import stallholder.StatusCode;
 import stallholder.Utils;
+import stallholder.Enum.ContentType;
+import stallholder.Enum.StatusCode;
 import stallholder.exceptions.HandleRequestException;
 
 /**

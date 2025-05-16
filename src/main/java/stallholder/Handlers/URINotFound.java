@@ -1,7 +1,7 @@
 package stallholder.Handlers;
 
 import stallholder.MyHttpResponse;
-import stallholder.StatusCode;
+import stallholder.Enum.StatusCode;
 
 /**
  * Represents a 404 Not Found HTTP response.

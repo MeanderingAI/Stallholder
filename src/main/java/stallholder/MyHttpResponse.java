@@ -2,6 +2,9 @@ package stallholder;
 
 import java.util.Arrays;
 
+import stallholder.Enum.ContentType;
+import stallholder.Enum.HttpVersion;
+import stallholder.Enum.StatusCode;
 import stallholder.exceptions.InsertHeaderException;
 
 /**

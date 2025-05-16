@@ -5,11 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import stallholder.ContentType;
 import stallholder.MyHttpRequest;
 import stallholder.MyHttpResponse;
 import stallholder.RequestHandler;
-import stallholder.StatusCode;
+import stallholder.Enum.ContentType;
+import stallholder.Enum.StatusCode;
 import stallholder.exceptions.HandleRequestException;
 
 /**
@@ -62,9 +62,9 @@ public class FileHandler extends RequestHandler {
         } catch(IllegalArgumentException e) {
             throw new HandleRequestException(e, "Invalid file type: " + file.getName());
         }
-        response.SetCode(StatusCode.OK);
-        response.SetContent(this.file_data);
-        response.SetContentType(content_type);
+        response.setCode(StatusCode.OK);
+        response.setContent(this.file_data);
+        response.setContentType(content_type);
         return response;
     }
 }

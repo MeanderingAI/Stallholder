@@ -44,6 +44,7 @@ public class CSRF_Entry {
     /**
      * Returns the expiration date of the CSRF token.
      * @return the expiration date
+     * 
      */
     @Override
     public int hashCode() {

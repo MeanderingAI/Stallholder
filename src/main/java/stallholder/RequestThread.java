@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.text.ParseException;
 import java.util.logging.Logger;
 
+import stallholder.Enum.HttpVerb;
 import stallholder.exceptions.HandleRequestException;
 import stallholder.exceptions.InsertHeaderException;
 

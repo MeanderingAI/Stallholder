@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import stallholder.Enum.HttpVerb;
+
 /**
  *  A router pair of the handler and the filters
  *  which lead to the handler

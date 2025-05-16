@@ -1,10 +1,10 @@
 package stallholder.Handlers;
 
-import stallholder.ContentType;
 import stallholder.MyHttpRequest;
 import stallholder.MyHttpResponse;
 import stallholder.RequestHandler;
-import stallholder.StatusCode;
+import stallholder.Enum.ContentType;
+import stallholder.Enum.StatusCode;
 
 /**
  * Represents a 404 Not Found request handler.
