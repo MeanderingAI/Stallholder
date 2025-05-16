@@ -30,7 +30,7 @@ public class Session_Set {
         sb.append("session=");
         sb.append(uuid.toString());
         sb.append("; HttpOnly");
-        response.SetCookie(sb.toString());
+        response.setCookie(sb.toString());
     }
 
     /**

@@ -59,22 +59,22 @@ public class FolderHandler extends RequestHandler {
         File f = new File(full_path);
         if(f.exists()) {
             if(f.isDirectory()) {
-                response.SetCode(StatusCode.FORBIDDEN);
-                response.SetContent("Directory access is forbidden", ContentType.PLAIN);
+                response.setCode(StatusCode.FORBIDDEN);
+                response.setContent("Directory access is forbidden", ContentType.PLAIN);
                 return response;
             } else {
-                response.SetCode(StatusCode.OK);
+                response.setCode(StatusCode.OK);
                 try {
-                    response.SetContent(Files.readAllBytes(Paths.get(full_path)));
+                    response.setContent(Files.readAllBytes(Paths.get(full_path)));
                 } catch (IOException e) {
                     throw new HandleRequestException(e, "Error reading file: " + full_path);
                 }
-                response.SetContentType(ContentType.fromFileName(file_name));
+                response.setContentType(ContentType.fromFileName(file_name));
             }
             
         } else {
-            response.SetCode(StatusCode.NOT_FOUND);
-            response.SetContent("File not found", ContentType.PLAIN);
+            response.setCode(StatusCode.NOT_FOUND);
+            response.setContent("File not found", ContentType.PLAIN);
         }
 
 

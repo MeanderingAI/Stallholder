@@ -28,7 +28,7 @@ public class URINotFoundHandler extends RequestHandler {
     @Override
     public MyHttpResponse HandleRequest(MyHttpRequest request) {
         MyHttpResponse response = new MyHttpResponse(StatusCode.NOT_FOUND);
-        response.SetContent(this.stringedResponse, ContentType.PLAIN);
+        response.setContent(this.stringedResponse, ContentType.PLAIN);
         return response;
     }
 
