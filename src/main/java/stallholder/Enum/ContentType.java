@@ -5,6 +5,7 @@ import java.util.Locale;
 /**
  * Enum representing the content type of a file.
  * https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Type
+ * https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types
  */
 public enum ContentType {
     /**
@@ -51,6 +52,10 @@ public enum ContentType {
      * Json content type
      */
     JSON("application/json"), 
+    /**
+     * octet-streams
+     */
+    OCTET_STREAM("application/octet-stream"),
     /**
      * Unimplemented content type
      */
@@ -122,6 +127,10 @@ public enum ContentType {
                 return JPG;
             case "image/png":
                 return PNG;
+            case "application/octet-stream":
+                return OCTET_STREAM;
+            case "application/json":
+                return JSON;
             default:
                 throw new IllegalArgumentException("Invalid content type: " + type);
         }
@@ -133,6 +142,7 @@ public enum ContentType {
      * @return ContentType enum corresponding to the type string
      * @throws IllegalArgumentException if the type string does not have a corresponding enum value
      */
+    @Deprecated
     public static ContentType fromContentTypeString(String type) throws IllegalArgumentException{
         switch (type) {
             case "text/html":

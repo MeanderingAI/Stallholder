@@ -1,10 +1,12 @@
 package stallholder;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.UUID;
 
 import stallholder.Enum.HttpVerb;
 import stallholder.Enum.HttpVersion;
+import stallholder.Forms.Form;
 import stallholder.exceptions.InsertHeaderException;
 
 import java.util.Map.Entry;
@@ -170,6 +172,17 @@ public class MyHttpRequest {
      */
     public String getBody() {
         return body;
+    }
+
+    /**
+     * Parses the body of the request into a 
+     * Form object.
+     * Undefined behavior on non-form data
+     * @return Parsed form 
+     * @throws IOException if cannot parse the form
+     */
+    public Form parseForm() throws IOException {
+        return new Form(this.body);
     }
 
     /**
