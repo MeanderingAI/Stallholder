@@ -33,6 +33,10 @@ public enum ContentType {
      */
     JPG("image/jpg"), 
     /**
+     * jpeg data
+     */
+    JPEG("image/jpeg"),
+    /**
      * gif data
      */
     GIF("image/gif"),
@@ -125,6 +129,8 @@ public enum ContentType {
                 return ICO;
             case "image/jpg":
                 return JPG;
+            case "image/jpeg":
+                return JPEG;
             case "image/png":
                 return PNG;
             case "application/octet-stream":
