@@ -92,6 +92,7 @@ public class HTTPServer extends ServerSocket {
      * @throws IOException from the socket
      */
     public void handleRequests() throws IOException{
+        this.running = true;
         while(this.running) {
             try {
                 this.handleRequest();
@@ -110,7 +111,7 @@ public class HTTPServer extends ServerSocket {
             logger.info("Starting server on port " + config.GetPortNumber());
             logger.info("Number of threads: " + config.GetNumberOfThreads());
         }
-
+        this.running = true;
         while(this.running) {
             try {
                 this.handleRequest(debug);

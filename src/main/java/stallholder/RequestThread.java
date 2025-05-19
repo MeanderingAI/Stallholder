@@ -85,6 +85,7 @@ public class RequestThread extends Thread {
 
 
     private void readInput() {
+        System.out.println("Reading input");
         try {
             inputStream = this.socket.getInputStream();
         } catch (IOException e) {
