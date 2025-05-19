@@ -155,6 +155,8 @@ public class MyHttpRequest {
         if(this.body == null) {
             this.body = "";
         }
+        // TODO: instead use a StringBuilder 
+        // This is a performance issue
         this.body = this.body + line;
     }
 

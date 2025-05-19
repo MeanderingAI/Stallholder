@@ -16,7 +16,7 @@ public class URINotFoundHandler extends RequestHandler {
     /**
      * Constructor for the 404 Not Found request handler.
      */
-    private URINotFoundHandler() {
+    public URINotFoundHandler() {
         this.stringedResponse = "404 Page not found";
     }
     
@@ -26,7 +26,7 @@ public class URINotFoundHandler extends RequestHandler {
      * @return a MyHttpResponse object with a 404 Not Found status code
      */
     @Override
-    public MyHttpResponse HandleRequest(MyHttpRequest request) {
+    public MyHttpResponse handleRequest(MyHttpRequest request) {
         MyHttpResponse response = new MyHttpResponse(StatusCode.NOT_FOUND);
         response.setContent(this.stringedResponse, ContentType.PLAIN);
         return response;

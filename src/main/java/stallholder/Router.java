@@ -4,8 +4,11 @@ package stallholder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import stallholder.Enum.HttpVerb;
+import stallholder.Handlers.LambdaFunctionHandler;
+import stallholder.Handlers.URINotFoundHandler;
 
 /**
  *  A router pair of the handler and the filters
@@ -37,12 +40,42 @@ public class Router {
     private RequestHandler not_found_handler = null;
 
     /**
+     * Default constructor for the router
+     */
+    public Router() {
+        requestList = new ArrayList<RouterPair>();
+        not_found_handler = new URINotFoundHandler();
+    }
+
+    /**
      * Constructor for the router
      * @param default404 a default handler for not found response
      */
     public Router(RequestHandler default404) {
         requestList = new ArrayList<RouterPair>();
         not_found_handler = default404;
+    }
+
+    /**
+     * Adds a route for a lambda function
+     * 
+     * @param path path of the resource to match against, defaults to GET verbs
+     * @param handler the request handler to use
+     */
+    public void addRoute(String path, Function<MyHttpRequest, MyHttpResponse> handler) {
+        MyHttpRequest filter = new MyHttpRequest(HttpVerb.GET, path);
+        this.addRoute(filter, new LambdaFunctionHandler(handler));
+    }
+
+    /**
+     * Adds a route for a lambda function
+     * 
+     * @param path path of the resource to match against, defaults to GET verbs
+     * @param handler the request handler to use
+     */
+    public void addRoute(String path, HttpVerb verb, Function<MyHttpRequest, MyHttpResponse> handler) {
+        MyHttpRequest filter = new MyHttpRequest(verb, path);
+        this.addRoute(filter, new LambdaFunctionHandler(handler));
     }
 
     /**
@@ -105,7 +138,7 @@ public class Router {
      * @throws IOException if there is an exception while processing the request
      */
     public MyHttpResponse handle(MyHttpRequest request) throws IOException {
-        return this.getHandler(request).HandleRequest(request);
+        return this.getHandler(request).handleRequest(request);
     }
 
 }

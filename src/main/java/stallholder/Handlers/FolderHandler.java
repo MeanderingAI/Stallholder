@@ -51,7 +51,7 @@ public class FolderHandler extends RequestHandler {
      * @throws HandleRequestException if there is an error reading the file
      */
     @Override
-    public MyHttpResponse HandleRequest(MyHttpRequest request) throws HandleRequestException {
+    public MyHttpResponse handleRequest(MyHttpRequest request) throws HandleRequestException {
         MyHttpResponse response = new MyHttpResponse();
 
         String file_name = Utils.getLastTokenInPath(request.getRequestURL());

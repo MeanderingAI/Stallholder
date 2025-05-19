@@ -94,6 +94,7 @@ public class RequestThread extends Thread {
             return;
         }
 
+
         inputStreamReader = new InputStreamReader(inputStream);
         bufferedReader = new BufferedReader(inputStreamReader);
 

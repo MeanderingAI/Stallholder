@@ -15,6 +15,7 @@ public class HTTPServer extends ServerSocket {
     private List<RequestThread> threads = null;
     private final ServerConfig config;
     private final Router router;
+    private boolean running = false;
 
     /**
      * Constructor for the HTTP server
@@ -35,7 +36,7 @@ public class HTTPServer extends ServerSocket {
      * 
      * @throws IOException from the socket
      */
-    public void handleRequest() throws IOException {
+    private void handleRequest() throws IOException {
         Socket socket = this.accept();
         if(threads.size() >= config.GetNumberOfThreads()) {
             logger.warning("Over the allowed number of threads");
@@ -64,7 +65,7 @@ public class HTTPServer extends ServerSocket {
      * @param debug true to enable debug mode
      * @throws IOException from the socket
      */
-    public void handleRequest(boolean debug) throws IOException {
+    private void handleRequest(boolean debug) throws IOException {
         Socket socket = this.accept();
         if(threads.size() >= config.GetNumberOfThreads()) {
             logger.warning("Over the allowed number of threads");
@@ -91,7 +92,7 @@ public class HTTPServer extends ServerSocket {
      * @throws IOException from the socket
      */
     public void handleRequests() throws IOException{
-        while(true) {
+        while(this.running) {
             try {
                 this.handleRequest();
             } catch (IOException e) {
@@ -110,12 +111,24 @@ public class HTTPServer extends ServerSocket {
             logger.info("Number of threads: " + config.GetNumberOfThreads());
         }
 
-        while(true) {
+        while(this.running) {
             try {
                 this.handleRequest(debug);
             } catch (IOException e) {
                 logger.warning("Error accepting connection: " + e.getMessage());
             }
+        }
+    }
+
+    /**
+     * Stops the server
+     */
+    public void stop() {
+        this.running = false;
+        try {
+            this.close();
+        } catch (IOException e) {
+            logger.warning("Error closing server socket: " + e.getMessage());
         }
     }
 

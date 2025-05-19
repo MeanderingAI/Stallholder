@@ -20,5 +20,5 @@ public abstract class RequestHandler {
      * @return a MyHttpResponse object
      * @throws HandleRequestException if there is an exception while processing the request
      */
-    public abstract MyHttpResponse HandleRequest(MyHttpRequest request) throws HandleRequestException;
+    public abstract MyHttpResponse handleRequest(MyHttpRequest request) throws HandleRequestException;
 }

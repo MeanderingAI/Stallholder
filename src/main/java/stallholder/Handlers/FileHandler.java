@@ -54,7 +54,7 @@ public class FileHandler extends RequestHandler {
      * @throws HandleRequestException if the request is invalid
      */
     @Override
-    public MyHttpResponse HandleRequest(MyHttpRequest request) throws HandleRequestException {
+    public MyHttpResponse handleRequest(MyHttpRequest request) throws HandleRequestException {
         MyHttpResponse response = new MyHttpResponse();
         ContentType content_type;
         try {
